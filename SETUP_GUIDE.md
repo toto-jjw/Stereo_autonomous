@@ -51,8 +51,8 @@
 ```bash
 sudo apt install -y git
 cd ~
-git clone https://github.com/eugene0429/WALJU.git
-cd ~/WALJU
+git clone https://github.com/toto-jjw/Stereo_autonomous.git
+cd ~/Stereo_autonomous
 ```
 
 > 📌 `src/` 내 ROS 2 패키지들(`orb_slam3_ros2`, `foundation_stereo_ros2`, `nvblox_integration`)은 이미 리포지토리에 포함되어 있습니다.
@@ -205,7 +205,7 @@ source ~/.bashrc
 프로젝트에 포함된 `config/foundation_stereo_py312_env.yml` 파일로 환경을 그대로 복원합니다.
 
 ```bash
-cd ~/WALJU
+cd ~/Stereo_autonomous
 conda env create -f config/foundation_stereo_py312_env.yml
 ```
 
@@ -242,7 +242,7 @@ sudo make install
 ORB-SLAM3 노드는 사전에 빌드된 라이브러리(`libORB_SLAM3.so`)를 참조합니다.
 
 ```bash
-cd ~/WALJU/deps
+cd ~/Stereo_autonomous/deps
 git clone https://github.com/UZ-SLAMLab/ORB_SLAM3.git
 cd ORB_SLAM3
 
@@ -261,15 +261,15 @@ chmod +x build.sh
 
 빌드 후 확인:
 ```bash
-ls ~/WALJU/deps/ORB_SLAM3/lib/libORB_SLAM3.so
-ls ~/WALJU/deps/ORB_SLAM3/Vocabulary/ORBvoc.txt
+ls ~/Stereo_autonomous/deps/ORB_SLAM3/lib/libORB_SLAM3.so
+ls ~/Stereo_autonomous/deps/ORB_SLAM3/Vocabulary/ORBvoc.txt
 # 두 파일이 모두 존재하면 성공
 ```
 
 ### 7.3 FoundationStereo
 
 ```bash
-cd ~/WALJU/deps
+cd ~/Stereo_autonomous/deps
 git clone https://github.com/NVlabs/FoundationStereo.git
 cd FoundationStereo
 
@@ -281,7 +281,7 @@ cd FoundationStereo
 ### 7.4 isaac_ros_nvblox
 
 ```bash
-cd ~/WALJU/deps
+cd ~/Stereo_autonomous/deps
 git clone https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_nvblox.git
 
 # 커스텀 수정 사항 적용 (스레드 안전성 패치)
@@ -297,14 +297,14 @@ cd ..
 ### 8.1 rosdep으로 빠진 의존성 설치
 
 ```bash
-cd ~/WALJU
+cd ~/Stereo_autonomous
 rosdep install --from-paths src deps/isaac_ros_nvblox --ignore-src -r -y
 ```
 
 ### 8.2 빌드
 
 ```bash
-cd ~/WALJU
+cd ~/Stereo_autonomous
 
 # ROS 2 환경 소싱 확인
 source /opt/ros/jazzy/setup.bash
@@ -321,7 +321,7 @@ source install/setup.bash
 ### 8.3 환경 소싱 자동화 (~/.bashrc에 추가)
 
 ```bash
-echo 'source ~/WALJU/install/setup.bash' >> ~/.bashrc
+echo 'source ~/Stereo_autonomous/install/setup.bash' >> ~/.bashrc
 source ~/.bashrc
 ```
 
@@ -348,7 +348,7 @@ source ~/.bashrc
 ### 전체 파이프라인 (시뮬레이션 모드)
 
 ```bash
-cd ~/WALJU
+cd ~/Stereo_autonomous
 ./run_pipeline.sh --all --sim
 ```
 
@@ -389,7 +389,7 @@ cd ~/WALJU
 
 ### ORB-SLAM3 빌드 에러: `libORB_SLAM3.so not found`
 
-- ORB-SLAM3가 `~/WALJU/deps/ORB_SLAM3/` 경로에 올바르게 빌드되었는지 확인
+- ORB-SLAM3가 `~/Stereo_autonomous/deps/ORB_SLAM3/` 경로에 올바르게 빌드되었는지 확인
 - 경로가 다르다면 `src/orb_slam3_ros2/CMakeLists.txt`의 `ORB_SLAM3_ROOT` 변수를 수정
 
 ### Pangolin 관련 에러
@@ -409,7 +409,7 @@ conda activate foundation_stereo_py312
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
 pip install opencv-python numpy scipy
 # 이후 FoundationStereo의 requirements.txt 설치
-cd ~/WALJU/deps/FoundationStereo
+cd ~/Stereo_autonomous/deps/FoundationStereo
 pip install -r requirements.txt
 ```
 
@@ -433,7 +433,7 @@ sudo apt install -y ros-jazzy-navigation2 ros-jazzy-nav2-bringup
 ### `isaac_ros_nvblox` 패치 적용 실패
 
 ```bash
-cd ~/WALJU/deps/isaac_ros_nvblox
+cd ~/Stereo_autonomous/deps/isaac_ros_nvblox
 # 패치 내용 미리 확인
 git apply --check ../../patches/isaac_ros_nvblox_custom.patch
 
@@ -447,24 +447,24 @@ git apply --3way ../../patches/isaac_ros_nvblox_custom.patch
 
 | 항목 | 경로 |
 |------|------|
-| **프로젝트 루트** | `~/WALJU/` |
-| **소스 패키지** | `~/WALJU/src/` |
-| **외부 라이브러리** | `~/WALJU/deps/` |
-| **데이터셋** | `~/WALJU/data/` |
-| **isaac_ros_nvblox** | `~/WALJU/deps/isaac_ros_nvblox/` |
-| **ORB-SLAM3** | `~/WALJU/deps/ORB_SLAM3/` |
-| **ORB Vocabulary** | `~/WALJU/deps/ORB_SLAM3/Vocabulary/ORBvoc.txt` |
-| **FoundationStereo** | `~/WALJU/deps/FoundationStereo/` |
-| **LuSNAR 데이터셋** | `~/WALJU/data/LuSNAR/` |
-| **SLAM 설정 (Sim)** | `~/WALJU/assets/sim_slam_settings.yaml` |
-| **카메라 Intrinsics (Sim)** | `~/WALJU/assets/sim_intrinsics.txt` |
-| **패치 파일** | `~/WALJU/patches/` |
-| **nvblox 커스텀 패치** | `~/WALJU/patches/isaac_ros_nvblox_custom.patch` |
-| **ORB-SLAM3 빌드 패치** | `~/WALJU/patches/ORB-SLAM3.patch` |
-| **Conda 환경 파일** | `~/WALJU/config/foundation_stereo_py312_env.yml` |
-| **의존성 정보** | `~/WALJU/config/dependencies_info.md` |
-| **유틸리티 스크립트** | `~/WALJU/scripts/` |
-| **웨이포인트** | `~/WALJU/data/waypoints.json` |
-| **실험 결과** | `~/WALJU/data/scenario_results/` |
-| **파이프라인 실행** | `~/WALJU/run_pipeline.sh` |
-| **파이프라인 종료** | `~/WALJU/kill_pipeline.sh` |
+| **프로젝트 루트** | `~/Stereo_autonomous/` |
+| **소스 패키지** | `~/Stereo_autonomous/src/` |
+| **외부 라이브러리** | `~/Stereo_autonomous/deps/` |
+| **데이터셋** | `~/Stereo_autonomous/data/` |
+| **isaac_ros_nvblox** | `~/Stereo_autonomous/deps/isaac_ros_nvblox/` |
+| **ORB-SLAM3** | `~/Stereo_autonomous/deps/ORB_SLAM3/` |
+| **ORB Vocabulary** | `~/Stereo_autonomous/deps/ORB_SLAM3/Vocabulary/ORBvoc.txt` |
+| **FoundationStereo** | `~/Stereo_autonomous/deps/FoundationStereo/` |
+| **LuSNAR 데이터셋** | `~/Stereo_autonomous/data/LuSNAR/` |
+| **SLAM 설정 (Sim)** | `~/Stereo_autonomous/assets/sim_slam_settings.yaml` |
+| **카메라 Intrinsics (Sim)** | `~/Stereo_autonomous/assets/sim_intrinsics.txt` |
+| **패치 파일** | `~/Stereo_autonomous/patches/` |
+| **nvblox 커스텀 패치** | `~/Stereo_autonomous/patches/isaac_ros_nvblox_custom.patch` |
+| **ORB-SLAM3 빌드 패치** | `~/Stereo_autonomous/patches/ORB-SLAM3.patch` |
+| **Conda 환경 파일** | `~/Stereo_autonomous/config/foundation_stereo_py312_env.yml` |
+| **의존성 정보** | `~/Stereo_autonomous/config/dependencies_info.md` |
+| **유틸리티 스크립트** | `~/Stereo_autonomous/scripts/` |
+| **웨이포인트** | `~/Stereo_autonomous/data/waypoints.json` |
+| **실험 결과** | `~/Stereo_autonomous/data/scenario_results/` |
+| **파이프라인 실행** | `~/Stereo_autonomous/run_pipeline.sh` |
+| **파이프라인 종료** | `~/Stereo_autonomous/kill_pipeline.sh` |

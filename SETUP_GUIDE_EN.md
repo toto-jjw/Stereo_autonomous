@@ -51,8 +51,8 @@ This document provides a complete step-by-step guide to setting up and running t
 ```bash
 sudo apt install -y git
 cd ~
-git clone https://github.com/eugene0429/WALJU.git
-cd ~/WALJU
+git clone https://github.com/toto-jjw/Stereo_autonomous.git
+cd ~/Stereo_autonomous
 ```
 
 > 📌 The ROS 2 source packages (`orb_slam3_ros2`, `foundation_stereo_ros2`, `nvblox_integration`) under `src/` are already included in the repository.
@@ -205,7 +205,7 @@ source ~/.bashrc
 Restore the environment using the `config/foundation_stereo_py312_env.yml` file included in the project.
 
 ```bash
-cd ~/WALJU
+cd ~/Stereo_autonomous
 conda env create -f config/foundation_stereo_py312_env.yml
 ```
 
@@ -242,7 +242,7 @@ sudo make install
 The ORB-SLAM3 node references the pre-built library (`libORB_SLAM3.so`).
 
 ```bash
-cd ~/WALJU/deps
+cd ~/Stereo_autonomous/deps
 git clone https://github.com/UZ-SLAMLab/ORB_SLAM3.git
 cd ORB_SLAM3
 
@@ -261,15 +261,15 @@ chmod +x build.sh
 
 Verify the build:
 ```bash
-ls ~/WALJU/deps/ORB_SLAM3/lib/libORB_SLAM3.so
-ls ~/WALJU/deps/ORB_SLAM3/Vocabulary/ORBvoc.txt
+ls ~/Stereo_autonomous/deps/ORB_SLAM3/lib/libORB_SLAM3.so
+ls ~/Stereo_autonomous/deps/ORB_SLAM3/Vocabulary/ORBvoc.txt
 # Both files should exist
 ```
 
 ### 7.3 FoundationStereo
 
 ```bash
-cd ~/WALJU/deps
+cd ~/Stereo_autonomous/deps
 git clone https://github.com/NVlabs/FoundationStereo.git
 cd FoundationStereo
 
@@ -282,7 +282,7 @@ cd FoundationStereo
 ### 7.4 isaac_ros_nvblox
 
 ```bash
-cd ~/WALJU/deps
+cd ~/Stereo_autonomous/deps
 git clone https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_nvblox.git
 
 # Apply custom modifications (thread safety patch)
@@ -298,14 +298,14 @@ cd ..
 ### 8.1 Install Missing Dependencies via rosdep
 
 ```bash
-cd ~/WALJU
+cd ~/Stereo_autonomous
 rosdep install --from-paths src deps/isaac_ros_nvblox --ignore-src -r -y
 ```
 
 ### 8.2 Build
 
 ```bash
-cd ~/WALJU
+cd ~/Stereo_autonomous
 
 # Verify ROS 2 environment is sourced
 source /opt/ros/jazzy/setup.bash
@@ -322,7 +322,7 @@ source install/setup.bash
 ### 8.3 Automate Environment Sourcing (add to ~/.bashrc)
 
 ```bash
-echo 'source ~/WALJU/install/setup.bash' >> ~/.bashrc
+echo 'source ~/Stereo_autonomous/install/setup.bash' >> ~/.bashrc
 source ~/.bashrc
 ```
 
@@ -349,7 +349,7 @@ To run in simulation mode (`--sim`), NVIDIA Isaac Sim must be installed.
 ### Full Pipeline (Simulation Mode)
 
 ```bash
-cd ~/WALJU
+cd ~/Stereo_autonomous
 ./run_pipeline.sh --all --sim
 ```
 
@@ -390,7 +390,7 @@ cd ~/WALJU
 
 ### ORB-SLAM3 Build Error: `libORB_SLAM3.so not found`
 
-- Verify that ORB-SLAM3 is correctly built at `~/WALJU/deps/ORB_SLAM3/`
+- Verify that ORB-SLAM3 is correctly built at `~/Stereo_autonomous/deps/ORB_SLAM3/`
 - If the path differs, update `ORB_SLAM3_ROOT` in `src/orb_slam3_ros2/CMakeLists.txt`
 
 ### Pangolin-related Errors
@@ -410,7 +410,7 @@ conda activate foundation_stereo_py312
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
 pip install opencv-python numpy scipy
 # Then install FoundationStereo's requirements
-cd ~/WALJU/deps/FoundationStereo
+cd ~/Stereo_autonomous/deps/FoundationStereo
 pip install -r requirements.txt
 ```
 
@@ -434,7 +434,7 @@ sudo apt install -y ros-jazzy-navigation2 ros-jazzy-nav2-bringup
 ### `isaac_ros_nvblox` Patch Application Failure
 
 ```bash
-cd ~/WALJU/deps/isaac_ros_nvblox
+cd ~/Stereo_autonomous/deps/isaac_ros_nvblox
 # Preview patch before applying
 git apply --check ../../patches/isaac_ros_nvblox_custom.patch
 
@@ -448,24 +448,24 @@ git apply --3way ../../patches/isaac_ros_nvblox_custom.patch
 
 | Item | Path |
 |------|------|
-| **Project Root** | `~/WALJU/` |
-| **Source Packages** | `~/WALJU/src/` |
-| **External Libraries** | `~/WALJU/deps/` |
-| **Datasets** | `~/WALJU/data/` |
-| **isaac_ros_nvblox** | `~/WALJU/deps/isaac_ros_nvblox/` |
-| **ORB-SLAM3** | `~/WALJU/deps/ORB_SLAM3/` |
-| **ORB Vocabulary** | `~/WALJU/deps/ORB_SLAM3/Vocabulary/ORBvoc.txt` |
-| **FoundationStereo** | `~/WALJU/deps/FoundationStereo/` |
-| **LuSNAR Dataset** | `~/WALJU/data/LuSNAR/` |
-| **SLAM Settings (Sim)** | `~/WALJU/assets/sim_slam_settings.yaml` |
-| **Camera Intrinsics (Sim)** | `~/WALJU/assets/sim_intrinsics.txt` |
-| **Patch Files** | `~/WALJU/patches/` |
-| **nvblox Custom Patch** | `~/WALJU/patches/isaac_ros_nvblox_custom.patch` |
-| **ORB-SLAM3 Build Patch** | `~/WALJU/patches/ORB-SLAM3.patch` |
-| **Conda Environment File** | `~/WALJU/config/foundation_stereo_py312_env.yml` |
-| **Dependencies Info** | `~/WALJU/config/dependencies_info.md` |
-| **Utility Scripts** | `~/WALJU/scripts/` |
-| **Waypoints** | `~/WALJU/data/waypoints.json` |
-| **Experiment Results** | `~/WALJU/data/scenario_results/` |
-| **Pipeline Launch** | `~/WALJU/run_pipeline.sh` |
-| **Pipeline Stop** | `~/WALJU/kill_pipeline.sh` |
+| **Project Root** | `~/Stereo_autonomous/` |
+| **Source Packages** | `~/Stereo_autonomous/src/` |
+| **External Libraries** | `~/Stereo_autonomous/deps/` |
+| **Datasets** | `~/Stereo_autonomous/data/` |
+| **isaac_ros_nvblox** | `~/Stereo_autonomous/deps/isaac_ros_nvblox/` |
+| **ORB-SLAM3** | `~/Stereo_autonomous/deps/ORB_SLAM3/` |
+| **ORB Vocabulary** | `~/Stereo_autonomous/deps/ORB_SLAM3/Vocabulary/ORBvoc.txt` |
+| **FoundationStereo** | `~/Stereo_autonomous/deps/FoundationStereo/` |
+| **LuSNAR Dataset** | `~/Stereo_autonomous/data/LuSNAR/` |
+| **SLAM Settings (Sim)** | `~/Stereo_autonomous/assets/sim_slam_settings.yaml` |
+| **Camera Intrinsics (Sim)** | `~/Stereo_autonomous/assets/sim_intrinsics.txt` |
+| **Patch Files** | `~/Stereo_autonomous/patches/` |
+| **nvblox Custom Patch** | `~/Stereo_autonomous/patches/isaac_ros_nvblox_custom.patch` |
+| **ORB-SLAM3 Build Patch** | `~/Stereo_autonomous/patches/ORB-SLAM3.patch` |
+| **Conda Environment File** | `~/Stereo_autonomous/config/foundation_stereo_py312_env.yml` |
+| **Dependencies Info** | `~/Stereo_autonomous/config/dependencies_info.md` |
+| **Utility Scripts** | `~/Stereo_autonomous/scripts/` |
+| **Waypoints** | `~/Stereo_autonomous/data/waypoints.json` |
+| **Experiment Results** | `~/Stereo_autonomous/data/scenario_results/` |
+| **Pipeline Launch** | `~/Stereo_autonomous/run_pipeline.sh` |
+| **Pipeline Stop** | `~/Stereo_autonomous/kill_pipeline.sh` |

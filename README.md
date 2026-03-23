@@ -1,8 +1,8 @@
-# WALJU
+# Stereo_autonomous
 
 **GPU-Accelerated Visual SLAM & Autonomous Navigation Pipeline for Planetary Rovers**
 
-WALJU is a ROS 2 pipeline that integrates stereo visual SLAM, deep learning-based depth estimation, dense 3D reconstruction, and autonomous navigation for unstructured terrain. It combines **ORB-SLAM3**, **FoundationStereo**, **nvblox**, and **Nav2** into a unified system orchestrated by a single shell script.
+Sreo_autonomous is a ROS 2 pipeline that integrates stereo visual SLAM, deep learning-based depth estimation, dense 3D reconstruction, and autonomous navigation for unstructured terrain. It combines **ORB-SLAM3**, **FoundationStereo**, **nvblox**, and **Nav2** into a unified system orchestrated by a single shell script.
 
 > Built on **Ubuntu 24.04** · **ROS 2 Jazzy** · **CUDA 12.0** · **Python 3.12**
 
@@ -28,9 +28,6 @@ WALJU is a ROS 2 pipeline that integrates stereo visual SLAM, deep learning-base
 
 The pipeline processes stereo camera inputs to perform real-time localization, 3D mapping, and autonomous navigation. Two operating modes are supported:
 
-<div align="center">
-  <video src="https://private-user-images.githubusercontent.com/159914069/555690790-79017a8c-510f-4b81-adb2-6f9846453f3b.mp4?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzIxNTMxODEsIm5iZiI6MTc3MjE1Mjg4MSwicGF0aCI6Ii8xNTk5MTQwNjkvNTU1NjkwNzkwLTc5MDE3YThjLTUxMGYtNGI4MS1hZGIyLTZmOTg0NjQ1M2YzYi5tcDQ_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMjI3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDIyN1QwMDQxMjFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT04NTdhZjA5YjkzOGFhY2U3ZmFkZjA0MmUxMDdhOWJiYWRmN2Q2MmIyMmFlMzkxMDg2NGUzNDhiMWU2NjNhNzMzJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.x6nBKU65KtkloVrLN-jvQ-pQeXp_4RiQADsmTlIf3XM" width="100%" controls></video>
-</div>
 
 | Mode | Source | Use Case |
 |------|--------|----------|
@@ -164,8 +161,8 @@ map (global frame, SLAM origin)
 
 ```bash
 # 1. Clone the workspace
-git clone <repository_url> ~/WALJU
-cd ~/WALJU
+git clone <repository_url> ~/Stereo_autonomous
+cd ~/Stereo_autonomous
 
 # 2. Clone external dependencies
 cd deps
@@ -263,7 +260,7 @@ Results are saved to `data/scenario_results/` with per-run metrics CSVs.
 ## Project Structure
 
 ```
-WALJU/
+Sreo_autonomous/
 ├── run_pipeline.sh              # Main pipeline launcher
 ├── kill_pipeline.sh             # Kill all pipeline processes
 ├── run_scenarios.sh             # Multi-scenario experiment runner
@@ -344,14 +341,7 @@ WALJU/
 | Point Cloud | `--pc-viz` | Open3D overlay — predicted (orange) vs ground truth (cyan) |
 | Pose Plot | `--pose-plot` | Matplotlib trajectory comparison (SLAM vs GT) |
 
-## Contributors
 
-| Avatar | Name | Role |
-|--------|------|------|
-| [![eugene0429](https://github.com/eugene0429.png?size=50)](https://github.com/eugene0429) | **[eugene0429](https://github.com/eugene0429)** | Co-developer |
-| [![toto-jjw](https://github.com/toto-jjw.png?size=50)](https://github.com/toto-jjw) | **[toto-jjw](https://github.com/toto-jjw)** | Co-developer |
-
----
 
 ## License
 
