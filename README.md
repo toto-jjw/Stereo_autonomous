@@ -344,6 +344,15 @@ WALJU/
 | Point Cloud | `--pc-viz` | Open3D overlay — predicted (orange) vs ground truth (cyan) |
 | Pose Plot | `--pose-plot` | Matplotlib trajectory comparison (SLAM vs GT) |
 
+## Contributors
+
+| Avatar | Name | Role |
+|--------|------|------|
+| [![eugene0429](https://github.com/eugene0429.png?size=50)](https://github.com/eugene0429) | **[eugene0429](https://github.com/eugene0429)** | Co-developer |
+| [![toto-jjw](https://github.com/toto-jjw.png?size=50)](https://github.com/toto-jjw) | **[toto-jjw](https://github.com/toto-jjw)** | Co-developer |
+
+---
+
 ## License
 
 This project integrates several open-source components under their respective licenses:
