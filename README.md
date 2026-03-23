@@ -29,6 +29,10 @@ Sreo_autonomous is a ROS 2 pipeline that integrates stereo visual SLAM, deep lea
 The pipeline processes stereo camera inputs to perform real-time localization, 3D mapping, and autonomous navigation. Two operating modes are supported:
 
 
+<div align="center">
+  <video src="https://private-user-images.githubusercontent.com/191950039/567756468-507507ee-1051-4b2e-9c4d-569e7fa3c1ad.mp4" width="100%" controls></video>
+</div>
+
 | Mode | Source | Use Case |
 |------|--------|----------|
 | **Simulation** (`--sim`) | NVIDIA Isaac Sim | Live stereo feed via ROS 2 bridge |
